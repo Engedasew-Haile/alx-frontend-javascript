@@ -1,4 +1,4 @@
-import signUpUser from './4-user-promise.js';
+/*import signUpUser from './4-user-promise.js';
 import uploadPhoto from './5-photo-reject.js';
 
 function handleProfileSignup(firstName, lastName, fileName) {
@@ -15,3 +15,9 @@ function handleProfileSignup(firstName, lastName, fileName) {
 }
 
 export default handleProfileSignup;
+*/
+import handleProfileSignup from './path/to/module.js';
+
+handleProfileSignup('John', 'Doe', 'example.jpg')
+  .then(results => console.log(results))
+  .catch(error => console.error(error.message));
