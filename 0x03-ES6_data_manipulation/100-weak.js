@@ -1,10 +1,9 @@
-iconst weakMap = new WeakMap();
-export const queryAPI = (endpoint) => {
-  const { protocol, name } = endpoint;
-  const key = `${protocol}-${name}`;
-  const count = weakMap.get(key) || 0;
-  if (count >= 5) {
-    throw new Error('Endpoint load is high');
-  }
-  weakMap.set(key, count + 1);
-};
+export const weakMap = new WeakMap();
+
+export function queryAPI(endpoint){
+	if (weakMap.has(endpoint)){
+	const nQuery = weakMap.get(endpoint);
+		if (nQuery >= 4) throw Error('Endpoit load is high');
+		weakMap.set(endpoint, waekMap.get(endpoint) + 1);
+	}	else { weakMap.set(endpoint, 1); }
+}
