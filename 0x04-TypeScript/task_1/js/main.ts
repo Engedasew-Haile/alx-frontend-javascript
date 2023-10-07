@@ -1,49 +1,75 @@
-interface Student {
-  firstName: string;
-  lastName: string;
-  age: number;
+interface Teacher {
+  readonly firstName: string;
+  readonly lastName: string;
+  fullTimeEmployee: boolean;
+  yearsOfExperience?: number;
   location: string;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  [propName: string]: any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
-const student1: Student = {
-  firstName: "Larry",
-  lastName: "Hudson",
-  age: 32,
-  location: "San Francisco",
+// const teacher3: Teacher = {
+//   firstName: "John",
+//   fullTimeEmployee: false,
+//   lastName: "Doe",
+//   location: "London",
+//   contract: false,
+// };
+
+// console.log(teacher3);
+
+interface Directors extends Teacher {
+  numberOfReports: number;
+}
+
+// const director1: Directors = {
+//   firstName: "John",
+//   lastName: "Doe",
+//   location: "London",
+//   fullTimeEmployee: true,
+//   numberOfReports: 17,
+// };
+// console.log(director1);
+
+/* eslint-disable @typescript-eslint/class-name-casing */
+interface printTeacherFunction {
+  (firstName: string, lastName: string): string;
+}
+
+/* eslint-enable @typescript-eslint/class-name-casing */
+export const printTeacher: printTeacherFunction = function (
+  firstName: string,
+  lastName: string
+): string {
+  return `${firstName.charAt(0)}. ${lastName}`;
 };
 
-const student2: Student = {
-  firstName: "Karla",
-  lastName: "Dermond",
-  age: 26,
-  location: "New York",
-};
+// console.log(printTeacher("John", "Doe"));
 
-const studentsList: Array<Student> = [student1, student2];
+interface StudentConstructor {
+  new (firstName: string, lastName: string): StudentClassInterface;
+}
 
-const body: HTMLBodyElement = document.getElementsByTagName("body")[0];
+interface StudentClassInterface {
+  workOnHomework(): string;
+  displayName(): string;
+}
 
-const table: HTMLTableElement = document.createElement("table");
-const thead: HTMLTableSectionElement = document.createElement("thead");
-const tbody: HTMLTableSectionElement = document.createElement("tbody");
+export class StudentClass implements StudentClassInterface {
+  firstName: string;
+  lastName: string;
 
-const rowHead: HTMLTableRowElement = thead.insertRow(0);
-const cell1Head: HTMLTableCellElement = rowHead.insertCell(0);
-const cell2Head: HTMLTableCellElement = rowHead.insertCell(1);
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
-cell1Head.innerHTML = "firstName";
-cell2Head.innerHTML = "location";
+  workOnHomework(): string {
+    return "Currently working";
+  }
 
-table.append(thead);
-
-studentsList.forEach((student) => {
-  const row: HTMLTableRowElement = tbody.insertRow(0);
-  const cell1: HTMLTableCellElement = row.insertCell(0);
-  const cell2: HTMLTableCellElement = row.insertCell(1);
-
-  cell1.innerHTML = student.firstName;
-  cell2.innerHTML = student.location;
-});
-
-table.append(tbody);
-body.append(table);
+  displayName(): string {
+    return this.firstName;
+  }
+}
